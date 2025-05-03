@@ -38,7 +38,7 @@ function App() {
 
       {loading && <p>Loading...</p>}
       {!loading && error && <p style={{ color: 'red' }}>Failed to fetch users.</p>}
-      {!loading && !error && users.length === 0 && <p>No data found</p>}
+      {!loading && !error && users.length === 0 && <p>No data found to display.</p>}
 
       {!loading && !error && users.length > 0 && (
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
