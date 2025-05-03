@@ -22,6 +22,9 @@ function App() {
       })
       .catch((err) => {
         console.error('Axios error:', err);
+        if (err.response && err.response.status === 401) {
+          alert('Authentication error: Please check your API key.');
+        }
         setError(true);
         setUsers([]);
         setLoading(false);
