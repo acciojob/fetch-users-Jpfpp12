@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false); // start with false now
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const fetchUsers = () => {
@@ -12,7 +12,8 @@ function App() {
 
     axios.get('https://reqres.in/api/users?page=1', {
       headers: {
-        Authorization: 'Bearer reqres-free-v1'
+        Authorization: 'Bearer reqres-free-v1',
+        'x-api-key': 'reqres-free-v1'
       }
     })
       .then((response) => {
@@ -22,7 +23,7 @@ function App() {
       .catch((err) => {
         console.error('Axios error:', err);
         setError(true);
-        setUsers([]); // fallback
+        setUsers([]);
         setLoading(false);
       });
   };
