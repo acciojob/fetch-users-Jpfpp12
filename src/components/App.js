@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime";
 
 import React, { useState } from "react";
 import axios from "axios";
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-        {/* Do not remove the main div */}
+      {/* Do not remove the main div */}
       <h1>User List</h1>
       <button className="btn" onClick={fetchUsers}>
         Get User List
