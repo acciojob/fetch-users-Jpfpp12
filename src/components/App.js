@@ -40,20 +40,33 @@ function App() {
       {!loading && !error && users.length === 0 && <p>No data found</p>}
 
       {!loading && !error && users.length > 0 && (
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              <img src={user.avatar} alt={user.first_name} width="50" style={{ borderRadius: '50%' }} />
-              <span style={{ marginLeft: '10px' }}>
-                {user.first_name} {user.last_name} ({user.email})
-              </span>
-            </li>
-          ))}
-        </ul>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th style={{ border: '1px solid #ddd', padding: '8px' }}>Avatar</th>
+              <th style={{ border: '1px solid #ddd', padding: '8px' }}>Name</th>
+              <th style={{ border: '1px solid #ddd', padding: '8px' }}>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                  <img src={user.avatar} alt={user.first_name} width="50" style={{ borderRadius: '50%' }} />
+                </td>
+                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                  {user.first_name} {user.last_name}
+                </td>
+                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                  {user.email}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
 }
 
 export default App;
-
