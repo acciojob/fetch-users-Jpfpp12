@@ -61,7 +61,7 @@ const UserList = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="4" style={{ textAlign: "center" }}>
+              <td colSpan="4" style={{ textAlign: "center" }} data-testid="no-data-message">
                 {loading || error ? null : "No data found to display."}
               </td>
             </tr>
