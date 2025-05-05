@@ -11,9 +11,11 @@ const UserList = () => {
     setLoading(true);
     setError(null);
 
+    const apiKey = process.env.REACT_APP_API_KEY || "reqres-free-v1"; // Use environment variable for API key
+
     axios
       .get("https://reqres.in/api/users", {
-        headers: { "x-api-key": "reqres-free-v1" },
+        headers: { "x-api-key": apiKey },
       })
       .then((response) => {
         setUsers(response.data.data);
