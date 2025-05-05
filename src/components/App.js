@@ -32,21 +32,18 @@ const UserList = () => {
       </button>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {users.length === 0 && !loading && !error && (
-        <p>No users available. Please fetch the user list.</p>
-      )}
-      {users.length > 0 && !loading && !error && (
-        <table border="1">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Avatar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
+      <table border="1">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Avatar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.length > 0 && !loading && !error ? (
+            users.map((user) => (
               <tr key={user.id}>
                 <td>{user.first_name}</td>
                 <td>{user.last_name}</td>
@@ -59,10 +56,16 @@ const UserList = () => {
                   />
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" style={{ textAlign: "center" }}>
+                {loading || error ? null : "No data found"}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
