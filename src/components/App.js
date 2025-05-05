@@ -1,68 +1,62 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import "./styles";
 
-function App() {
+const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const fetchUsers = () => {
     setLoading(true);
-    setError(false);
+    setError(null);
 
-    axios.get('https://reqres.in/api/users?page=1', {
-      headers: {
-        Authorization: 'Bearer reqres-free-v1',
-        'x-api-key': 'reqres-free-v1'
-      }
-    })
+    axios
+      .get("https://reqres.in/api/users", {
+        headers: { "x-api-key": "reqres-free-v1" },
+      })
       .then((response) => {
         setUsers(response.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Axios error:', err);
-        if (err.response && err.response.status === 401) {
-          alert('Authentication error: Please check your API key.');
-        }
-        setError(true);
-        setUsers([]);
+        setError("Failed to fetch users. Please try again.");
         setLoading(false);
       });
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h1>Blue Whales App</h1>
-
-      <button className="btn" onClick={fetchUsers} style={{ marginBottom: '20px', padding: '10px' }}>
-        Fetch Users
+    <div>
+      <button className="btn" onClick={fetchUsers}>
+        Get User List
       </button>
-
       {loading && <p>Loading...</p>}
-      {!loading && error && <p style={{ color: 'red' }}>Failed to fetch users.</p>}
-      {!loading && !error && users.length === 0 && <p>No data found to display.</p>}
-
-      {!loading && !error && users.length > 0 && (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      {error && <p>{error}</p>}
+      {users.length === 0 && !loading && !error && (
+        <p>No users available. Please fetch the user list.</p>
+      )}
+      {users.length > 0 && !loading && !error && (
+        <table border="1">
           <thead>
             <tr>
-              <th style={{ border: '1px solid #ddd', padding: '8px' }}>Avatar</th>
-              <th style={{ border: '1px solid #ddd', padding: '8px' }}>Name</th>
-              <th style={{ border: '1px solid #ddd', padding: '8px' }}>Email</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Avatar</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user.id}>
-                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-                  <img src={user.avatar} alt={user.first_name} width="50" style={{ borderRadius: '50%' }} />
-                </td>
-                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-                  {user.first_name} {user.last_name}
-                </td>
-                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-                  {user.email}
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{user.email}</td>
+                <td>
+                  <img
+                    src={user.avatar}
+                    alt={`${user.first_name} ${user.last_name}`}
+                    style={{ width: "50px", height: "50px" }}
+                  />
                 </td>
               </tr>
             ))}
@@ -71,6 +65,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
-export default App;
+export default UserList;
